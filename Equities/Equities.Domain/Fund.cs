@@ -7,15 +7,24 @@ using System.Threading.Tasks;
 namespace Equities.Domain
 {
     public class Fund
-    { 
+    {
+        private readonly IList<Stock> _registry;
+
+        public Fund()
+        {
+            _registry = new List<Stock>();
+        }
+
         public void Add(Stock item)
         {
-
+            _registry.Add(item);
         }
 
         public bool Contains(Stock item)
         {
-            throw new NotImplementedException();
+            return _registry.Contains(item);
         }
+
+
     }
 }
