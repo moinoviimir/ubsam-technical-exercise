@@ -5,7 +5,7 @@ using Equities.Models;
 
 namespace Equities.ViewModels
 {
-    public class SummaryViewModel
+    public sealed class SummaryViewModel
     {
         public readonly ReadOnlyObservableCollection<SummaryModel> Summary;
 

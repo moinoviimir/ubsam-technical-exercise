@@ -8,7 +8,7 @@ using Equities.Models;
 
 namespace Equities.Builders
 {
-    public class SummaryBuilder
+    public sealed class SummaryBuilder
     {
         private IList<Stock> _stocks;
         private IList<SummaryModel> _result;
@@ -31,6 +31,7 @@ namespace Equities.Builders
             var equities = _stocks.Where(x => x.StockType == TypeOfStock.Equity).ToList();
             var equitySummary = new SummaryModel
             {
+                Name = "Equities",
                 TotalNumber = equities.Count,
                 TotalMarketValue = equities.Sum(x => x.MarketValue),
                 TotalStockWeight = equities.Sum(x => x.StockWeight)
@@ -45,6 +46,7 @@ namespace Equities.Builders
             var bonds = _stocks.Where(x => x.StockType == TypeOfStock.Bond).ToList();
             var bondSummary = new SummaryModel
             {
+                Name = "Bonds",
                 TotalNumber = bonds.Count,
                 TotalMarketValue = bonds.Sum(x => x.MarketValue),
                 TotalStockWeight = bonds.Sum(x => x.StockWeight)
@@ -59,6 +61,7 @@ namespace Equities.Builders
             var everything = _stocks;
             var totalSummary = new SummaryModel
             {
+                Name = "Total",
                 TotalNumber = everything.Count,
                 TotalMarketValue = everything.Sum(x => x.MarketValue),
                 TotalStockWeight = everything.Sum(x => x.StockWeight)

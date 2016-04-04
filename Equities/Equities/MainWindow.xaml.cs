@@ -1,18 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using Equities.Domain;
 using Equities.Domain.Providers;
 using Equities.ViewModels;
@@ -24,6 +11,8 @@ namespace Equities
     /// </summary>
     public partial class MainWindow : Window
     {
+        private readonly MainWindowViewModel _vm;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -36,10 +25,22 @@ namespace Equities
             fund.Add(equity);
             fund.Add(bond2);
 
-            DataContext = new FundViewModel(fund);
+            _vm = new MainWindowViewModel(fund);
+            DataContext = _vm;
         }
 
+        private void btnAddStock_Click(object sender, RoutedEventArgs e)
+        {
+            var price = Decimal.Parse(txtPrice.Text);
+            var quantity = Int32.Parse(txtQuantity.Text);
+            Stock stock;
+            var selectedType = Enum.Parse(typeof (TypeOfStock), cbType.SelectedValue.ToString());
+            if ((TypeOfStock) selectedType == TypeOfStock.Equity)
+                stock = new Equity(price, quantity);
+            else
+                stock = new Bond(price, quantity);
 
-        //public ObservableCollection<> 
+           _vm.AddToFund(stock);
+        }
     }
 }
