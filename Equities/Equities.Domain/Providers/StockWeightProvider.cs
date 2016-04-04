@@ -7,7 +7,7 @@ using Equities.Domain.Providers.Interfaces;
 
 namespace Equities.Domain.Providers
 {
-    public class StockWeightProvider : IStockWeightProvider
+    public sealed class StockWeightProvider : IStockWeightProvider
     {
         public void UpdateStockWeights(IEnumerable<Stock> stocks)
         {

@@ -6,12 +6,15 @@ using System.Threading.Tasks;
 
 namespace Equities.Domain
 {
-    public class Bond : Stock
+    public sealed class Bond : Stock
     {
         public Bond(decimal price, int quantity)
             : base(price, quantity)
-        {
-            
+        {    
         }
+
+        public override TypeOfStock StockType => TypeOfStock.Bond;
+
+        public override decimal TransactionCost => MarketValue * 0.02m;
     }
 }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Equities.Domain.Providers
 {
-    public class StockNameProvider : IStockNameProvider
+    public sealed class StockNameProvider : IStockNameProvider
     {
         private int currentBondQuantity = 0;
         private int currentEquityQuantity = 0;

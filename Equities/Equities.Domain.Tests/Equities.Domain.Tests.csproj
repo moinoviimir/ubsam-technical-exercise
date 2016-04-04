@@ -48,8 +48,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BondTests.cs" />
+    <Compile Include="EquityTests.cs" />
     <Compile Include="FundTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Providers\StockNameProviderTests.cs" />
+    <Compile Include="Providers\StockWeightProviderTests.cs" />
     <Compile Include="StockTests.cs" />
   </ItemGroup>
   <ItemGroup>

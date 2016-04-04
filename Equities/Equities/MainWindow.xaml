@@ -5,8 +5,27 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Equities"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
-    <Grid>
-        
+        Title="MainWindow" Height="368.094" Width="616.71">
+    <Grid Margin="5 5 5 5">
+        <DockPanel HorizontalAlignment="Stretch" LastChildFill="True" VerticalAlignment="Stretch" >
+            <GroupBox DockPanel.Dock="Right" Width="150">
+                <GroupBox.Header>Summary</GroupBox.Header>
+                <DataGrid x:Name="gridSummary" HorizontalAlignment="Stretch" ItemsSource="{Binding Summary}" />
+
+            </GroupBox>
+            <GroupBox DockPanel.Dock="Top">
+                <GroupBox.Header>Add Stocks</GroupBox.Header>
+                <StackPanel Height="85"  >
+                    <Button x:Name="btnAddEquity" Content="Add Equity" Margin="10" Width="100" HorizontalAlignment="Left" />
+                    <Button x:Name="btnAddBond" Content="Add Bond" Margin="10" Width="100" HorizontalAlignment="Left" />
+                </StackPanel>
+            </GroupBox>
+
+            <DataGrid DockPanel.Dock="Bottom" ItemsSource="{Binding Stocks}" />
+        </DockPanel>
+
+
+
+
     </Grid>
 </Window>

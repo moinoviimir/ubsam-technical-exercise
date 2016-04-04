@@ -47,6 +47,7 @@
     <Compile Include="Bond.cs" />
     <Compile Include="Equity.cs" />
     <Compile Include="Fund.cs" />
+    <Compile Include="Providers\FundFactory.cs" />
     <Compile Include="Providers\Interfaces\IStockNameProvider.cs" />
     <Compile Include="Providers\Interfaces\IStockWeightProvider.cs" />
     <Compile Include="Providers\StockWeightProvider.cs" />
