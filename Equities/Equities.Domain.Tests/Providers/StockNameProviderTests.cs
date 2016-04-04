@@ -1,14 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Equities.Domain.Providers;
-using Moq;
-using NUnit.Framework.Internal;
 using NUnit.Framework;
 
-namespace Equities.Domain.Tests
+namespace Equities.Domain.Tests.Providers
 {
     [TestFixture]
     public class StockNameProviderTests

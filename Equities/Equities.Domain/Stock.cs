@@ -47,6 +47,11 @@ namespace Equities.Domain
         /// </summary>
         public abstract decimal TransactionCost { get; }
 
+        /// <summary>
+        /// The weight of the Stock within its Fund.
+        /// </summary>
+        public decimal StockWeight { get; set; }
+
         protected Stock(decimal price, int quantity)
         {
             Price = price;

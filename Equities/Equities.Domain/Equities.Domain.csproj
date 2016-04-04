@@ -48,6 +48,8 @@
     <Compile Include="Equity.cs" />
     <Compile Include="Fund.cs" />
     <Compile Include="Providers\Interfaces\IStockNameProvider.cs" />
+    <Compile Include="Providers\Interfaces\IStockWeightProvider.cs" />
+    <Compile Include="Providers\StockWeightProvider.cs" />
     <Compile Include="Stock.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Providers\StockNameProvider.cs" />
