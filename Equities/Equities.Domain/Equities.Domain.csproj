@@ -47,8 +47,10 @@
     <Compile Include="Bond.cs" />
     <Compile Include="Equity.cs" />
     <Compile Include="Fund.cs" />
+    <Compile Include="Providers\Interfaces\IStockNameProvider.cs" />
     <Compile Include="Stock.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Providers\StockNameProvider.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
