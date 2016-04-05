@@ -38,17 +38,24 @@
             </GroupBox>
             <GroupBox DockPanel.Dock="Top">
                 <GroupBox.Header>Add Stocks</GroupBox.Header>
-                <StackPanel Height="50" Orientation="Horizontal" DataContext="{Binding StockInput} ">
-                    <TextBox x:Name="txtPrice" TextWrapping="Wrap" Text="Price" Width="120" VerticalAlignment="Center" Margin="5 5 0 0" />
-                    <TextBox x:Name="txtQuantity" TextWrapping="Wrap" Text="Quantity" Width="120" VerticalAlignment="Center" Margin="5 5 0 0" />
-                    <ComboBox x:Name="cbType" IsEditable="False" VerticalAlignment="Center" Margin="5 5 0 0" ItemsSource="{Binding StockTypes, 
-            diag:PresentationTraceSources.TraceLevel=High}">
+                <StackPanel Height="50" Orientation="Horizontal" DataContext="{Binding AddStock}">
+                    <TextBox x:Name="txtPrice" TextWrapping="Wrap"  Text="{Binding Price, UpdateSourceTrigger=PropertyChanged}" Width="120" VerticalAlignment="Center" Margin="5 5 0 0" />
+                    <TextBox x:Name="txtQuantity" TextWrapping="Wrap" Text="{Binding Quantity, UpdateSourceTrigger=PropertyChanged}" Width="120" VerticalAlignment="Center" Margin="5 5 0 0" />
+                    <ComboBox x:Name="cbType" Width="80" IsEditable="False" VerticalAlignment="Center" Margin="5 5 0 0" ItemsSource="{Binding StockTypes, UpdateSourceTrigger=PropertyChanged}">
                     </ComboBox>
-                    <Button x:Name="btnAddStock" Content="Add" VerticalAlignment="Center" Width="80"  Margin="5 5 5 0" Click="btnAddStock_Click" />
+                    <Button x:Name="btnAddStock" Content="Add" VerticalAlignment="Center" Width="80"  Margin="5 5 5 0" Command="{Binding AddCommand}" ToolTipService.ShowOnDisabled="true" >
+                        <Button.ToolTip>
+                            <ToolTip>
+                                <StackPanel>
+                                    <TextBlock FontWeight="Bold" Text="{Binding ErrorTooltip}"></TextBlock>
+                                </StackPanel>
+                            </ToolTip>
+                        </Button.ToolTip>
+                    </Button>
                 </StackPanel>
             </GroupBox>
 
-            <DataGrid DockPanel.Dock="Bottom" IsReadOnly="True" AutoGenerateColumns="False"  ItemsSource="{Binding Stocks}">
+            <DataGrid DockPanel.Dock="Bottom" IsReadOnly="True" AutoGenerateColumns="False"  ItemsSource="{Binding Fund.Stocks}">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Type" Width="SizeToCells" Binding="{Binding StockType}"/>
                     <DataGridTextColumn Header="Name" CellStyle="{StaticResource ResultTextBlockStyle}" Binding="{Binding Name}"/>
