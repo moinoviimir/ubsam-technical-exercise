@@ -41,17 +41,10 @@
                 <StackPanel Height="50" Orientation="Horizontal" DataContext="{Binding AddStock}">
                     <TextBox x:Name="txtPrice" TextWrapping="Wrap"  Text="{Binding Price, UpdateSourceTrigger=PropertyChanged}" Width="120" VerticalAlignment="Center" Margin="5 5 0 0" />
                     <TextBox x:Name="txtQuantity" TextWrapping="Wrap" Text="{Binding Quantity, UpdateSourceTrigger=PropertyChanged}" Width="120" VerticalAlignment="Center" Margin="5 5 0 0" />
-                    <ComboBox x:Name="cbType" Width="80" IsEditable="False" VerticalAlignment="Center" Margin="5 5 0 0" ItemsSource="{Binding StockTypes, UpdateSourceTrigger=PropertyChanged}">
+                    <ComboBox x:Name="cbType" Width="80" IsEditable="False" VerticalAlignment="Center" Margin="5 5 0 0" 
+                              ItemsSource="{Binding StockTypes, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding StockType}">
                     </ComboBox>
-                    <Button x:Name="btnAddStock" Content="Add" VerticalAlignment="Center" Width="80"  Margin="5 5 5 0" Command="{Binding AddCommand}" ToolTipService.ShowOnDisabled="true" >
-                        <Button.ToolTip>
-                            <ToolTip>
-                                <StackPanel>
-                                    <TextBlock FontWeight="Bold" Text="{Binding ErrorTooltip}"></TextBlock>
-                                </StackPanel>
-                            </ToolTip>
-                        </Button.ToolTip>
-                    </Button>
+                    <Button x:Name="btnAddStock" Content="Add" VerticalAlignment="Center" Width="80"  Margin="5 5 5 0" Command="{Binding AddCommand}" />
                 </StackPanel>
             </GroupBox>
 

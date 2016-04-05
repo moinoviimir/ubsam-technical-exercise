@@ -5,14 +5,13 @@ using System.Windows.Data;
 using System.Windows.Input;
 using Equities.Domain;
 using Equities.Infrastructure;
+using Equities.Models;
 
 namespace Equities.ViewModels
 {
-    public sealed class AddStockViewModel : INotifyPropertyChanged
+    public sealed class AddStockViewModel : NotifiableObject
     {
         private string _price;
-        private string _quantity;
-
         public string Price
         {
             get { return _price;}
@@ -21,10 +20,10 @@ namespace Equities.ViewModels
                 _price = value;
                 _addCommand.RaiseCanExecuteChanged();
                 OnPropertyChanged(nameof(Price));
-                ValidateModel();
             }
         }
 
+        private string _quantity;
         public string Quantity
         {
             get { return _quantity; }
@@ -33,7 +32,6 @@ namespace Equities.ViewModels
                 _quantity = value;
                 _addCommand.RaiseCanExecuteChanged();
                 OnPropertyChanged(nameof(Quantity));
-                ValidateModel();
             }
         }
 
@@ -43,32 +41,15 @@ namespace Equities.ViewModels
 
         private readonly DelegateCommand _addCommand;
         public ICommand AddCommand => _addCommand;
-        public event PropertyChangedEventHandler PropertyChanged;
-        
-        private void OnPropertyChanged(string name)
-        {
-            PropertyChangedEventHandler handler = PropertyChanged;
-            if (handler != null)
-            {
-                handler(this, new PropertyChangedEventArgs(name));
-            }
-        }
 
-        public string ErrorTooltip {
-            get { return _errorTooltip; }
-            set
-            {
-                _errorTooltip = value;
-                OnPropertyChanged(nameof(ErrorTooltip));
-            }
-        }
-        private string _errorTooltip;
+        private Action<StockInputModel> _addStockAction;
 
-
-        public AddStockViewModel()
+        public AddStockViewModel(Action<StockInputModel> addStockAction)
         {
             StockTypes = new ListCollectionView(new List<string> { TypeOfStock.Equity.ToString(), TypeOfStock.Bond.ToString() });
             _addCommand = new DelegateCommand(o => AddNewStock(), o => IsModelValid());
+            _addStockAction = addStockAction;
+            StockType = TypeOfStock.Equity.ToString();
         }
 
         private bool IsModelValid()
@@ -88,19 +69,10 @@ namespace Equities.ViewModels
             return Decimal.TryParse(_price, out tempDecimal);
         }
 
-        private void ValidateModel()
-        {
-            if (!IsPriceValid())
-                ErrorTooltip = "Price is expected to be a decimal number";
-            else if (!IsQuantityValid())
-                ErrorTooltip = "Quantity is expected to be an integer";
-            else
-                ErrorTooltip = "Adds the stock";
-        }
-
         private void AddNewStock()
         {
-            
+            var inputModel = new StockInputModel(Price, Quantity, StockType);
+            _addStockAction(inputModel);
         }
 
         

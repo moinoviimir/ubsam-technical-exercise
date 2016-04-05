@@ -4,27 +4,50 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using Equities.Builders;
 using Equities.Domain;
+using Equities.Infrastructure;
 using Equities.Models;
 
 namespace Equities.ViewModels
 {
-    public sealed class SummaryViewModel
+    public sealed class SummaryViewModel : NotifiableObject
     {
-        public ReadOnlyObservableCollection<SummaryModel> Contents { get; }
+        private ReadOnlyObservableCollection<SummaryModel> _contents;
+        public ReadOnlyObservableCollection<SummaryModel> Contents
+        {
+            get {return _contents;}
+            set
+            {
+                _contents = value;
+                OnPropertyChanged(nameof(Contents));
+            }
+        }
 
-        public SummaryViewModel(Func<IEnumerable<Stock>> getStocksAction)
+        private Func<IEnumerable<Stock>> _getStocksFunc;
+
+        public SummaryViewModel(Func<IEnumerable<Stock>> getStocksFunc)
+        {
+            _getStocksFunc = getStocksFunc;
+            BuildSummary();
+        }
+
+        private void BuildSummary()
         {
             var summaryList =
-                new SummaryBuilder(getStocksAction)
+                new SummaryBuilder(_getStocksFunc)
                     .WithEquities()
                     .WithBonds()
                     .WithTotal()
                     .Summary;
-                
 
-            Contents = 
+
+            Contents =
                 new ReadOnlyObservableCollection<SummaryModel>(
                     new ObservableCollection<SummaryModel>(summaryList));
+        }
+
+        public void Update()
+        {
+            BuildSummary();
         }
     }
 }

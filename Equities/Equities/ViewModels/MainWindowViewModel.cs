@@ -8,16 +8,19 @@ namespace Equities.ViewModels
 
         public SummaryViewModel Summary { get; }
 
-        //public StockInputModel StockInput { get; set; }
         public AddStockViewModel AddStock { get; set; }
-
 
         public MainWindowViewModel()
         {
             Fund = new FundViewModel();
             Summary = new SummaryViewModel(Fund.GetStocksFunc);
-            //StockInput = new StockInputModel();
-            AddStock = new AddStockViewModel();
+            AddStock = new AddStockViewModel(OnStockAdded);
+        }
+
+        private void OnStockAdded(StockInputModel stock)
+        {
+            Fund.AddStock(stock);
+            Summary.Update();
         }
     }
 }

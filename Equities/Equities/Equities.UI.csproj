@@ -57,6 +57,7 @@
     </ApplicationDefinition>
     <Compile Include="Builders\SummaryBuilder.cs" />
     <Compile Include="Infrastructure\DelegateCommand.cs" />
+    <Compile Include="Infrastructure\NotifiableObject.cs" />
     <Compile Include="Models\StockInputModel.cs" />
     <Compile Include="Models\SummaryModel.cs" />
     <Compile Include="DataProviders\TestDataProvider.cs" />
