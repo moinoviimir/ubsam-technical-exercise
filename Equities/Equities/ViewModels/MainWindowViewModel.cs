@@ -11,51 +11,20 @@ namespace Equities.ViewModels
 {
     public class MainWindowViewModel
     {
-        public ICollectionView Stocks { get; private set; }
-        public ReadOnlyObservableCollection<SummaryModel> Summary { get; private set; }
+        public FundViewModel Fund { get; private set; }
+
+        //public ReadOnlyObservableCollection<SummaryModel> Summary { get; private set; }
+        public SummaryViewModel Summary { get; private set; }
 
         public ICollectionView StockTypes { get; }
 
-        private Fund _fund;
 
-
-        public MainWindowViewModel(Fund fund)
+        public MainWindowViewModel()
         {
-            _fund = fund;
-
-            UpdateStocks();
-
-            
+            Fund = new FundViewModel();
+            Summary = new SummaryViewModel(Fund.GetStocksFunc);
 
             StockTypes = new ListCollectionView(new List<string> {TypeOfStock.Equity.ToString(), TypeOfStock.Bond.ToString()});
         }
-
-        private void UpdateStocks()
-        {
-            var list = _fund.GetStocks().Select(stock => new StockViewModel(stock)).ToList();
-            Stocks = new ListCollectionView(list);
-
-            var summaryList =
-                new SummaryBuilder(_fund)
-                    .WithEquities()
-                    .WithBonds()
-                    .WithTotal()
-                    .Summary;
-
-            Summary =
-                new ReadOnlyObservableCollection<SummaryModel>(
-                    new ObservableCollection<SummaryModel>(summaryList));
-        }
-
-        public void AddToFund(Stock stock)
-        {
-            _fund.Add(stock);
-            UpdateStocks();
-        }
-
-        
-
-        
-            
     }
 }

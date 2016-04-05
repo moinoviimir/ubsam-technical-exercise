@@ -1,4 +1,7 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
 using Equities.Builders;
 using Equities.Domain;
 using Equities.Models;
@@ -7,19 +10,19 @@ namespace Equities.ViewModels
 {
     public sealed class SummaryViewModel
     {
-        public readonly ReadOnlyObservableCollection<SummaryModel> Summary;
+        public ReadOnlyObservableCollection<SummaryModel> Contents { get; }
 
-        public SummaryViewModel(Fund fund)
+        public SummaryViewModel(Func<IEnumerable<Stock>> getStocksAction)
         {
             var summaryList =
-                new SummaryBuilder(fund)
+                new SummaryBuilder(getStocksAction)
                     .WithEquities()
                     .WithBonds()
                     .WithTotal()
                     .Summary;
                 
 
-            Summary = 
+            Contents = 
                 new ReadOnlyObservableCollection<SummaryModel>(
                     new ObservableCollection<SummaryModel>(summaryList));
         }

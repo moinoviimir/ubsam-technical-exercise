@@ -6,7 +6,7 @@
         xmlns:diag="clr-namespace:System.Diagnostics;assembly=WindowsBase"
         xmlns:local="clr-namespace:Equities"
         mc:Ignorable="d"
-        Title="MainWindow" Height="400" Width="765">
+        Title="MainWindow" Height="400" Width="792">
     <Window.Resources>
         <Style x:Key="ResultTextBlockStyle" TargetType="{x:Type DataGridCell}">
             <Style.Triggers>
@@ -23,9 +23,17 @@
 
     <Grid Margin="5 5 5 5">
         <DockPanel HorizontalAlignment="Stretch" LastChildFill="True" VerticalAlignment="Stretch" >
-            <GroupBox DockPanel.Dock="Right" Width="250">
+            <GroupBox DockPanel.Dock="Right" DataContext="{Binding Summary}">
                 <GroupBox.Header>Summary</GroupBox.Header>
-                <DataGrid x:Name="gridSummary" HorizontalAlignment="Stretch" ItemsSource="{Binding Summary}" />
+                <DataGrid x:Name="gridSummary" AutoGenerateColumns="False"  HorizontalAlignment="Stretch" ItemsSource="{Binding Contents, 
+            diag:PresentationTraceSources.TraceLevel=High}">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="" CanUserSort="False" Binding="{Binding Name}"/>
+                        <DataGridTextColumn Header="Amount" Binding="{Binding TotalNumber}"/>
+                        <DataGridTextColumn Header="Stock Weight" Binding="{Binding TotalStockWeight, StringFormat=N2}" />
+                        <DataGridTextColumn Header="Market Value" Binding="{Binding TotalMarketValue, StringFormat=C}" />
+                    </DataGrid.Columns>
+                </DataGrid>
 
             </GroupBox>
             <GroupBox DockPanel.Dock="Top">
@@ -33,19 +41,10 @@
                 <StackPanel Height="50" Orientation="Horizontal" >
                     <TextBox x:Name="txtPrice" TextWrapping="Wrap" Text="Price" Width="120" VerticalAlignment="Center" Margin="5 5 0 0"/>
                     <TextBox x:Name="txtQuantity" TextWrapping="Wrap" Text="Quantity" Width="120" VerticalAlignment="Center" Margin="5 5 0 0" />
-                    <ComboBox x:Name="cbType" IsEditable="False" Width="120" VerticalAlignment="Center" Margin="5 5 0 0" ItemsSource="{Binding StockTypes, 
+                    <ComboBox x:Name="cbType" IsEditable="False" VerticalAlignment="Center" Margin="5 5 0 0" ItemsSource="{Binding StockTypes, 
             diag:PresentationTraceSources.TraceLevel=High}">
-                        <!--<ComboBox.ItemTemplate>
-                            <DataTemplate>
-                                <StackPanel Orientation="Horizontal">
-                                    <Rectangle Fill="{Binding StockTypes}" Width="16" Height="16" Margin="0,2,5,2" />
-                                    <TextBlock Text="{Binding StockTypes}" />
-                                </StackPanel>
-                            </DataTemplate>
-                        </ComboBox.ItemTemplate>
-                        -->
                     </ComboBox>
-                    <Button x:Name="btnAddStock" Content="Add" VerticalAlignment="Center" Margin="5 5 5 0" Width="100" Click="btnAddStock_Click" />
+                    <Button x:Name="btnAddStock" Content="Add" VerticalAlignment="Center" Width="80"  Margin="5 5 5 0" Click="btnAddStock_Click" />
                 </StackPanel>
             </GroupBox>
 
@@ -55,8 +54,8 @@
                     <DataGridTextColumn Header="Name" CellStyle="{StaticResource ResultTextBlockStyle}" Binding="{Binding Name}"/>
                     <DataGridTextColumn Header="Price" Binding="{Binding Price, StringFormat=C}" />
                     <DataGridTextColumn Header="Quantity" Binding="{Binding Quantity}"/>
-                    <DataGridTextColumn Header="Market Value" Binding="{Binding MarketValue, StringFormat=N2}"/>
-                    <DataGridTextColumn Header="Transaction Cost" Binding="{Binding TransactionCost, StringFormat=N2}"/>
+                    <DataGridTextColumn Header="Market Value" Binding="{Binding MarketValue, StringFormat=C}"/>
+                    <DataGridTextColumn Header="Transaction Cost" Binding="{Binding TransactionCost, StringFormat=C}"/>
                     <DataGridTextColumn Header="Stock Weight" Binding="{Binding StockWeight, StringFormat=N2}"/>
                 </DataGrid.Columns>
             </DataGrid>

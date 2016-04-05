@@ -8,16 +8,23 @@ using Equities.Models;
 
 namespace Equities.Builders
 {
+    /// <summary>
+    /// Builds a Summary based on provided Stocks.
+    /// </summary>
+    /// <remarks>
+    /// This class doesn't take into account that there might be too many Stocks to fit in a single array.
+    /// It is a primitive implementation for the front-end designed with readability and ease-of-maintenance in mind.
+    /// </remarks>
     public sealed class SummaryBuilder
     {
-        private IList<Stock> _stocks;
-        private IList<SummaryModel> _result;
+        private readonly IList<Stock> _stocks;
+        private readonly IList<SummaryModel> _result;
 
-        public IEnumerable<SummaryModel> Summary { get { return _result; } }
+        public IEnumerable<SummaryModel> Summary => _result;
 
-        public SummaryBuilder(Fund fund)
+        public SummaryBuilder(Func<IEnumerable<Stock>> getStocksAction)
         {
-            _stocks = fund.GetStocks().ToList();
+            _stocks = getStocksAction().ToList();
             _result = new List<SummaryModel>();
         }
 
