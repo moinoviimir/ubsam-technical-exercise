@@ -71,8 +71,16 @@ namespace Equities.ViewModels
 
         private void AddNewStock()
         {
-            var inputModel = new StockInputModel(Price, Quantity, StockType);
-            _addStockAction(inputModel);
+            try
+            {
+                var inputModel = new StockInputModel(Price, Quantity, StockType);
+                _addStockAction(inputModel);
+            }
+            catch (ModelValidationException mex)
+            {
+                // log it and rethrow, eventually getting across to the exception boundary that would generate a user-friendly exception
+                // having it reach the user as a suitable dialog window explaining the problem
+            }
         }
 
         
