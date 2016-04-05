@@ -11,20 +11,18 @@ namespace Equities.ViewModels
 {
     public class MainWindowViewModel
     {
-        public FundViewModel Fund { get; private set; }
+        public FundViewModel Fund { get; }
 
-        //public ReadOnlyObservableCollection<SummaryModel> Summary { get; private set; }
-        public SummaryViewModel Summary { get; private set; }
+        public SummaryViewModel Summary { get; }
 
-        public ICollectionView StockTypes { get; }
+        public StockInputModel StockInput { get; set; }
 
 
         public MainWindowViewModel()
         {
             Fund = new FundViewModel();
             Summary = new SummaryViewModel(Fund.GetStocksFunc);
-
-            StockTypes = new ListCollectionView(new List<string> {TypeOfStock.Equity.ToString(), TypeOfStock.Bond.ToString()});
+            StockInput = new StockInputModel();
         }
     }
 }

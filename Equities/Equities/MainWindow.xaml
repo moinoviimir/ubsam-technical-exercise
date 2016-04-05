@@ -38,8 +38,8 @@
             </GroupBox>
             <GroupBox DockPanel.Dock="Top">
                 <GroupBox.Header>Add Stocks</GroupBox.Header>
-                <StackPanel Height="50" Orientation="Horizontal" >
-                    <TextBox x:Name="txtPrice" TextWrapping="Wrap" Text="Price" Width="120" VerticalAlignment="Center" Margin="5 5 0 0"/>
+                <StackPanel Height="50" Orientation="Horizontal" DataContext="{Binding StockInput} ">
+                    <TextBox x:Name="txtPrice" TextWrapping="Wrap" Text="Price" Width="120" VerticalAlignment="Center" Margin="5 5 0 0" />
                     <TextBox x:Name="txtQuantity" TextWrapping="Wrap" Text="Quantity" Width="120" VerticalAlignment="Center" Margin="5 5 0 0" />
                     <ComboBox x:Name="cbType" IsEditable="False" VerticalAlignment="Center" Margin="5 5 0 0" ItemsSource="{Binding StockTypes, 
             diag:PresentationTraceSources.TraceLevel=High}">

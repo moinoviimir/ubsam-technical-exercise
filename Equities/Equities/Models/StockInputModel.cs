@@ -1,14 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Data;
 using Equities.Domain;
 
 namespace Equities.Models
 {
     public sealed class StockInputModel
     {
+        public string QuantityString { get; set; }
+        public string StockTypeString { get; set; }
+
         public decimal Price { get; }
         public int Quantity { get; }
         public TypeOfStock StockType { get; }
@@ -30,6 +35,8 @@ namespace Equities.Models
             Price = priceAsDecimal;
             Quantity = quantityAsInteger;
             StockType = stockTypeAsEnum;
+
+            
         }
 
         public Stock AsStock()
