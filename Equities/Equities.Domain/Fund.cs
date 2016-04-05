@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Equities.Domain.Providers;
 using Equities.Domain.Providers.Interfaces;
 
@@ -6,7 +7,7 @@ namespace Equities.Domain
 {
     public sealed class Fund
     {
-        private readonly IList<Stock> _registry;
+        private IEnumerable<Stock> _registry;
         private readonly IStockNameProvider _stockNameProvider;
         private readonly IStockWeightProvider _stockWeightProvider;
 
@@ -23,7 +24,7 @@ namespace Equities.Domain
             // we might want to get fancy here and create a copy of the Stock with a new name
             // this would happen all but immediately if we were to choose to have a Stock belong to multiple Funds
             item.Name = name;
-            _registry.Add(item);
+            _registry = _registry.Concat(new List<Stock> { item });
             _stockWeightProvider.UpdateStockWeights(_registry);
         }
 

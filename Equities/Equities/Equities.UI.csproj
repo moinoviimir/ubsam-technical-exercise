@@ -61,7 +61,7 @@
     <Compile Include="Models\StockInputModel.cs" />
     <Compile Include="Models\SummaryModel.cs" />
     <Compile Include="DataProviders\TestDataProvider.cs" />
-    <Compile Include="ModelValidationException.cs" />
+    <Compile Include="Infrastructure\ModelValidationException.cs" />
     <Compile Include="ViewModels\AddStockViewModel.cs" />
     <Compile Include="ViewModels\FundViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />

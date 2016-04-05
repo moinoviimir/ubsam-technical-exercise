@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Equities.Domain.Providers.Interfaces;
 
 namespace Equities.Domain.Providers
@@ -14,9 +12,10 @@ namespace Equities.Domain.Providers
             if (stocks == null)
                 throw new ArgumentNullException(nameof(stocks));
 
-            var list = new List<Stock>(stocks);
-            var totalMarketValue = list.Sum(x => x.MarketValue);
-            foreach (var stock in list)
+            // we do not convert this to an IList because the collection could be very large
+            // and thus interating upon it might just be the only thing left to us
+            var totalMarketValue = stocks.Sum(x => x.MarketValue);
+            foreach (var stock in stocks)
             {
                 stock.StockWeight = stock.MarketValue / totalMarketValue;
             }

@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Data;
 using Equities.Domain;
+using Equities.Infrastructure;
 
 namespace Equities.Models
 {
