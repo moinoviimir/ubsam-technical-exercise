@@ -33,16 +33,41 @@
                 </DataGrid>
 
             </GroupBox>
-            <GroupBox DockPanel.Dock="Top">
+            <GroupBox DockPanel.Dock="Top" Height="80">
                 <GroupBox.Header>Add Stocks</GroupBox.Header>
-                <StackPanel Height="50" Orientation="Horizontal" DataContext="{Binding AddStock}">
+                <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" DataContext="{Binding AddStock}">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="25" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+
+                    <Label x:Name="lblPrice" Grid.Row="0" Grid.Column="0" VerticalAlignment="Bottom" Content="Price:" />
+                    <TextBox x:Name="txtPrice" Grid.Row="1" Grid.Column="0" TextWrapping="Wrap"  Text="{Binding Price, UpdateSourceTrigger=PropertyChanged}" Width="120" VerticalAlignment="Top" Margin="5 5 0 0" />
+                    <Label x:Name="lblQuantity" Grid.Row="0" Grid.Column="1" VerticalAlignment="Bottom" Content="Quantity:" />
+                    <TextBox x:Name="txtQuantity" Grid.Row="1" Grid.Column="1" TextWrapping="Wrap" Text="{Binding Quantity, UpdateSourceTrigger=PropertyChanged}" Width="120" VerticalAlignment="Top" Margin="5 5 0 0" />
+                    <Label x:Name="lblType" Grid.Row="0" Grid.Column="2" VerticalAlignment="Bottom" Content="Type:" />
+                    <ComboBox x:Name="cbType" Grid.Row="1" Grid.Column="2" Width="80" IsEditable="False" VerticalAlignment="Top" Margin="5 5 0 0" 
+                		ItemsSource="{Binding StockTypes, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding StockType}"/>
+                    <Button x:Name="btnAddStock" Grid.Row="1" Grid.Column="3" Content="Add" VerticalAlignment="Top" Width="80"  Margin="5 5 5 0" IsDefault="True" Command="{Binding AddCommand}" />
+                    
+
+                </Grid>
+                <!--
+                <StackPanel Height="70" Orientation="Horizontal" DataContext="{Binding AddStock}">
                     <TextBox x:Name="txtPrice" TextWrapping="Wrap"  Text="{Binding Price, UpdateSourceTrigger=PropertyChanged}" Width="120" VerticalAlignment="Center" Margin="5 5 0 0" />
                     <TextBox x:Name="txtQuantity" TextWrapping="Wrap" Text="{Binding Quantity, UpdateSourceTrigger=PropertyChanged}" Width="120" VerticalAlignment="Center" Margin="5 5 0 0" />
                     <ComboBox x:Name="cbType" Width="80" IsEditable="False" VerticalAlignment="Center" Margin="5 5 0 0" 
-                              ItemsSource="{Binding StockTypes, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding StockType}">
-                    </ComboBox>
+                		ItemsSource="{Binding StockTypes, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding StockType}"/>
                     <Button x:Name="btnAddStock" Content="Add" VerticalAlignment="Center" Width="80"  Margin="5 5 5 0" Command="{Binding AddCommand}" />
                 </StackPanel>
+                -->
+                
             </GroupBox>
 
             <DataGrid DockPanel.Dock="Bottom" IsReadOnly="True" AutoGenerateColumns="False"  ItemsSource="{Binding Fund.Stocks}">

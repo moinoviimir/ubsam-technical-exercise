@@ -81,8 +81,16 @@ namespace Equities.ViewModels
                 // log it and rethrow, eventually getting across to the exception boundary that would generate a user-friendly exception
                 // having it reach the user as a suitable dialog window explaining the problem
             }
+            finally
+            {
+                Reset();
+            }
         }
 
-        
+        private void Reset()
+        {
+            Price = String.Empty;
+            Quantity = String.Empty;
+        }
     }
 }
