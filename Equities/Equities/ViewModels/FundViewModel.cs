@@ -36,7 +36,7 @@ namespace Equities.ViewModels
         public FundViewModel()
         {
             // This is painful to look at, and we should really use DI here with a proper composition root and bindings and everything, 
-            // but I couldn't bring myself to also introduce a DI container here aswell. This solution feels slightly bloated as it is.
+            // but I couldn't bring myself to also introduce a DI container here. This solution feels slightly bloated as it is.
             // I hope the overall design that I strove for in the Domain Model will demonstrate my awareness of the concept.
             var fund = TestDataProvider.CreateTestFund();
 

@@ -2,13 +2,13 @@
 
 namespace Equities.ViewModels
 {
-    public class MainWindowViewModel
+    public sealed class MainWindowViewModel
     {
         public FundViewModel Fund { get; }
 
         public SummaryViewModel Summary { get; }
 
-        public AddStockViewModel AddStock { get; set; }
+        public AddStockViewModel AddStock { get; }
 
         public MainWindowViewModel()
         {

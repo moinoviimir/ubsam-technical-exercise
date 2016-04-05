@@ -1,16 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Equities.Domain;
+﻿using Equities.Domain;
 
 namespace Equities.ViewModels
 {
     /// <summary>
     /// The ViewModel in charge of displaying a Stock business object.
     /// </summary>
-    public class StockViewModel
+    public sealed class StockViewModel
     {
         public string StockType { get; }
         public string Name { get; }
