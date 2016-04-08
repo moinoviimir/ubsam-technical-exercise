@@ -17,7 +17,7 @@ namespace Equities.ViewModels
     /// This class doesn't take into account that the Fund can contain an extremely large amount of Stocks, thus overflowing our internal Stocks collection.
     /// This is a rather cheap implementation that would have to get reworked should such a situation come into play.
     /// </remarks>
-    public sealed class FundViewModel : NotifiableObject
+    public sealed class FundViewModel : NotifiableObject, IFundViewModel
     {
         private ICollectionView _stocks;
 
@@ -33,18 +33,9 @@ namespace Equities.ViewModels
 
         private readonly Fund _fund;
 
-        public FundViewModel()
+        public FundViewModel(Fund fund)
         {
-            // This is painful to look at, and we should really use DI here with a proper composition root and bindings and everything, 
-            // but I couldn't bring myself to also introduce a DI container here. This solution feels slightly bloated as it is.
-            // I hope the overall design that I strove for in the Domain Model will demonstrate my awareness of the concept.
-            var fund = TestDataProvider.CreateTestFund();
-
-            var temporaryCollection = new List<StockViewModel>();
-            foreach (var stock in fund.GetStocks())
-            {
-                temporaryCollection.Add(new StockViewModel(stock));
-            }
+            var temporaryCollection = fund.GetStocks().Select(stock => new StockViewModel(stock)).ToList();
 
             Stocks = new ListCollectionView(temporaryCollection);
 

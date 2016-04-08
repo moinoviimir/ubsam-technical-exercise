@@ -1,9 +1,7 @@
-﻿using System;
-using System.Windows;
+﻿using System.Windows;
+using Equities.Builders;
 using Equities.DataProviders;
-using Equities.Domain;
-using Equities.Domain.Providers;
-using Equities.Models;
+using Equities.Helpers;
 using Equities.ViewModels;
 
 namespace Equities
@@ -13,20 +11,29 @@ namespace Equities
     /// </summary>
     public partial class MainWindow : Window
     {
-        private readonly MainWindowViewModel _coreViewModel;
-
         public MainWindow()
         {
             InitializeComponent();
+            
+            // Poor man's DI here - I'm heistant to add a proper IoC container to this already somewhat bloated solution.
+            // Given how our dependency tree is shallow enough, this will do.
+            // Having the composition root in a Window class is somewhat cringe-inducing, but in the end, I don't think it matters all that much.
+            var fundViewModel = new FundViewModel(TestDataProvider.CreateTestFund());
+            var summaryViewModel = new SummaryViewModel(new SummaryBuilderFactory(fundViewModel.GetStocksFunc));
+            var addStockHelper = new AddStockHelper(
+                    fundViewModel,
+                    summaryViewModel
+                    );
+            var addStockViewModel = new AddStockViewModel(addStockHelper);
 
-            _coreViewModel = new MainWindowViewModel();
-            DataContext = _coreViewModel;
+            var coreViewModel = new MainWindowViewModel(
+                fundViewModel,
+                summaryViewModel,
+                addStockViewModel
+                );
+                
+            DataContext = coreViewModel;
         }
 
-        private void btnAddStock_Click(object sender, RoutedEventArgs e)
-        {
-            var stockInputModel = new StockInputModel(txtPrice.Text, txtQuantity.Text, cbType.SelectedValue.ToString());
-           _coreViewModel.Fund.AddStock(stockInputModel);
-        }
     }
 }

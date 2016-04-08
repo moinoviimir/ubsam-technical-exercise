@@ -4,17 +4,18 @@ using System.ComponentModel;
 using System.Windows.Data;
 using System.Windows.Input;
 using Equities.Domain;
+using Equities.Helpers;
 using Equities.Infrastructure;
 using Equities.Models;
 
 namespace Equities.ViewModels
 {
-    public sealed class AddStockViewModel : NotifiableObject
+    public sealed class AddStockViewModel : NotifiableObject, IAddStockViewModel
     {
         private string _price;
         public string Price
         {
-            get { return _price;}
+            get { return _price; }
             set
             {
                 _price = value;
@@ -42,13 +43,13 @@ namespace Equities.ViewModels
         private readonly DelegateCommand _addCommand;
         public ICommand AddCommand => _addCommand;
 
-        private Action<StockInputModel> _addStockAction;
+        private readonly IAddStockHelper _addStockHelper;
 
-        public AddStockViewModel(Action<StockInputModel> addStockAction)
+        public AddStockViewModel(IAddStockHelper addStockHelper)
         {
             StockTypes = new ListCollectionView(new List<string> { TypeOfStock.Equity.ToString(), TypeOfStock.Bond.ToString() });
             _addCommand = new DelegateCommand(o => AddNewStock(), o => IsModelValid());
-            _addStockAction = addStockAction;
+            _addStockHelper = addStockHelper;
             StockType = TypeOfStock.Equity.ToString();
         }
 
@@ -74,7 +75,7 @@ namespace Equities.ViewModels
             try
             {
                 var inputModel = new StockInputModel(Price, Quantity, StockType);
-                _addStockAction(inputModel);
+                _addStockHelper.AddStock(inputModel);
             }
             catch (ModelValidationException mex)
             {

@@ -51,6 +51,10 @@ namespace Equities.ViewModels
         /// </summary>
         /// <param name="stock">The Stock in question.</param>
         /// <returns>True for an unprofitable stock, false otherwise.</returns>
+        /// <remarks>
+        /// An argument could be made for splitting this off into a separate entity. Its responsibilities are arguably distinct enough.
+        /// I do not have a strong opinion on the subject, and, although I do lean towards splitting it off, I'm keeping it as it is because of time constraints.
+        /// </remarks>
         private static bool ShouldBeRed(Stock stock)
         {
             var tolerance = stock.StockType == TypeOfStock.Bond ? 100000 : 200000;

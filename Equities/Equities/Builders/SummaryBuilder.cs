@@ -14,7 +14,7 @@ namespace Equities.Builders
     /// This class doesn't take into account that there might be too many Stocks to fit in a single array.
     /// This is a primitive implementation for the front-end designed with readability and ease-of-maintenance in mind.
     /// </remarks>
-    public sealed class SummaryBuilder
+    public sealed class SummaryBuilder : ISummaryBuilder
     {
         private readonly IList<Stock> _stocks;
         private readonly IList<SummaryModel> _result;
@@ -30,7 +30,7 @@ namespace Equities.Builders
             return _result;
         }
 
-        public SummaryBuilder WithEquities()
+        public ISummaryBuilder WithEquities()
         {
             var equities = _stocks.Where(x => x.StockType == TypeOfStock.Equity).ToList();
             if (equities.Count == 0)
@@ -48,7 +48,7 @@ namespace Equities.Builders
             return this;
         }
 
-        public SummaryBuilder WithBonds()
+        public ISummaryBuilder WithBonds()
         {
             var bonds = _stocks.Where(x => x.StockType == TypeOfStock.Bond).ToList();
             if (bonds.Count == 0)
@@ -66,7 +66,7 @@ namespace Equities.Builders
             return this;
         }
 
-        public SummaryBuilder WithTotal()
+        public ISummaryBuilder WithTotal()
         {
             var everything = _stocks;
             if (everything.Count == 0)

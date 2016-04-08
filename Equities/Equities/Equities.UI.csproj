@@ -55,7 +55,12 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Builders\ISummaryBuilder.cs" />
+    <Compile Include="Builders\ISummaryBuilderFactory.cs" />
     <Compile Include="Builders\SummaryBuilder.cs" />
+    <Compile Include="Builders\SummaryBuilderFactory.cs" />
+    <Compile Include="Helpers\AddStockHelper.cs" />
+    <Compile Include="Helpers\IAddStockHelper.cs" />
     <Compile Include="Infrastructure\DelegateCommand.cs" />
     <Compile Include="Infrastructure\NotifiableObject.cs" />
     <Compile Include="Models\StockInputModel.cs" />
@@ -64,6 +69,9 @@
     <Compile Include="Infrastructure\ModelValidationException.cs" />
     <Compile Include="ViewModels\AddStockViewModel.cs" />
     <Compile Include="ViewModels\FundViewModel.cs" />
+    <Compile Include="ViewModels\IAddStockViewModel.cs" />
+    <Compile Include="ViewModels\IFundViewModel.cs" />
+    <Compile Include="ViewModels\ISummaryViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Compile Include="ViewModels\StockViewModel.cs" />
     <Compile Include="ViewModels\SummaryViewModel.cs" />

@@ -1,26 +1,31 @@
-﻿using Equities.Models;
+﻿using Equities.DataProviders;
+using Equities.Helpers;
+using Equities.Models;
 
 namespace Equities.ViewModels
 {
     public sealed class MainWindowViewModel
     {
-        public FundViewModel Fund { get; }
+        public IFundViewModel Fund { get; }
 
-        public SummaryViewModel Summary { get; }
+        public ISummaryViewModel Summary { get; }
 
-        public AddStockViewModel AddStock { get; }
+        public IAddStockViewModel AddStock { get; }
 
-        public MainWindowViewModel()
+        public MainWindowViewModel(IFundViewModel fundViewModel, ISummaryViewModel summaryViewModel, 
+            IAddStockViewModel addStockViewModel)
         {
-            Fund = new FundViewModel();
-            Summary = new SummaryViewModel(Fund.GetStocksFunc);
-            AddStock = new AddStockViewModel(OnStockAdded);
-        }
+            // This is painful to look at, and we should really use DI here with a proper composition root and bindings and everything, 
+            // but I couldn't bring myself to also introduce a DI container here. This solution feels slightly bloated as it is.
+            // I hope the overall design that I strove for in the Domain Model will demonstrate my awareness of the concept.
+            //Fund = new FundViewModel(TestDataProvider.CreateTestFund());
+            //Summary = new SummaryViewModel(Fund.GetStocksFunc);
+            //AddStock = new AddStockViewModel(_addStockHelper);
+            //_addStockHelper = addStockHelper;
 
-        private void OnStockAdded(StockInputModel stock)
-        {
-            Fund.AddStock(stock);
-            Summary.Update();
+            AddStock = addStockViewModel;
+            Fund = fundViewModel;
+            Summary = summaryViewModel;
         }
     }
 }

@@ -19,27 +19,27 @@ namespace Equities.UI.Tests.Models
         public void CtorThrowsOnInvalidQuantity()
         {
             Assert.Throws<ModelValidationException>(
-                () => new StockInputModel("10.0", "quantity", TypeOfStock.Equity.ToString()));
+                () => new StockInputModel("10,0", "quantity", TypeOfStock.Equity.ToString()));
         }
 
         [TestCase]
         public void CtorThrowsOnInvalidStockType()
         {
             Assert.Throws<ModelValidationException>(
-                () => new StockInputModel("10.0", "10", "type"));
+                () => new StockInputModel("10,0", "10", "type"));
         }
 
         [TestCase]
         public void AsStockReturnsNewBondForEquityType()
         {
-            var sut = new StockInputModel("10.0", "10", "Equity");
+            var sut = new StockInputModel("10,0", "10", "Equity");
             Assert.IsInstanceOf(typeof(Equity), sut.AsStock());
         }
 
         [TestCase]
         public void AsStockReturnsNewBondForBondType()
         {
-            var sut = new StockInputModel("10.0", "10", "Bond");
+            var sut = new StockInputModel("10,0", "10", "Bond");
             Assert.IsInstanceOf(typeof(Bond), sut.AsStock());
         }
     }

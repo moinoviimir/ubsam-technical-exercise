@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Resources;
 using Equities.Builders;
 using Equities.Domain;
 using Equities.Infrastructure;
@@ -8,7 +9,7 @@ using Equities.Models;
 
 namespace Equities.ViewModels
 {
-    public sealed class SummaryViewModel : NotifiableObject
+    public sealed class SummaryViewModel : NotifiableObject, ISummaryViewModel
     {
         private ReadOnlyObservableCollection<SummaryModel> _contents;
         public ReadOnlyObservableCollection<SummaryModel> Contents
@@ -21,18 +22,19 @@ namespace Equities.ViewModels
             }
         }
 
-        private Func<IEnumerable<Stock>> _getStocksFunc;
+        private readonly ISummaryBuilderFactory _summaryBuilderFactory;
 
-        public SummaryViewModel(Func<IEnumerable<Stock>> getStocksFunc)
+        public SummaryViewModel(ISummaryBuilderFactory summaryBuilderFactory)
         {
-            _getStocksFunc = getStocksFunc;
+            _summaryBuilderFactory = summaryBuilderFactory;
             BuildSummary();
         }
 
         private void BuildSummary()
         {
+            var summaryBuilder = _summaryBuilderFactory.Create();
             var summaryList =
-                new SummaryBuilder(_getStocksFunc)
+                summaryBuilder
                     .WithEquities()
                     .WithBonds()
                     .WithTotal()
