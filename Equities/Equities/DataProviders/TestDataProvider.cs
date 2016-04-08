@@ -13,13 +13,15 @@ namespace Equities.DataProviders
         {
             var fund = new FundFactory().Create();
             var bond = new Bond(1000.0m, 5000);
+            var bond2 = new Bond(1000.0m, 5001);
             var equity = new Equity(25000.0m, 400);
-            var bond2 = new Bond(3500.0m, 600);
-            var bond3 = new Bond(1000.0m, 10000);
+            var bond3 = new Bond(3500.0m, 600);
+            var bond4 = new Bond(1000.0m, 10000);
             fund.Add(bond);
-            fund.Add(equity);
             fund.Add(bond2);
+            fund.Add(equity);
             fund.Add(bond3);
+            fund.Add(bond4);
 
             return fund;
         }
