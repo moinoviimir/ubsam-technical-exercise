@@ -2,6 +2,9 @@
 
 namespace Equities.Infrastructure
 {
+    /// <summary>
+    /// Taken from stackoverflow somewhere.
+    /// </summary>
     public abstract class NotifiableObject : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;

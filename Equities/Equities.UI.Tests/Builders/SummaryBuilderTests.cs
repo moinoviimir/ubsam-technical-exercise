@@ -6,7 +6,7 @@ using Equities.Domain;
 using Equities.Domain.Providers;
 using NUnit.Framework;
 
-namespace Equities.UI.Tests
+namespace Equities.UI.Tests.Builders
 {
     [TestFixture]
     public class SummaryBuilderTests

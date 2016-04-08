@@ -30,8 +30,6 @@ namespace Equities.Models
             Price = priceAsDecimal;
             Quantity = quantityAsInteger;
             StockType = stockTypeAsEnum;
-
-            
         }
 
         public Stock AsStock()
