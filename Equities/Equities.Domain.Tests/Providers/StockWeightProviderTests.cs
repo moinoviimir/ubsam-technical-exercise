@@ -25,6 +25,18 @@ namespace Equities.Domain.Tests.Providers
         }
 
         [TestCase]
+        public void UpdateStockWeightsSetsAllWeightsToZeroIfAllMarketValuesAreZero()
+        {
+            var sut = new StockWeightProvider();
+            var equity = new Equity(0.0m, 5);
+            var bond = new Bond(10.0m, 0);
+            var list = new List<Stock> {equity, bond};
+            sut.UpdateStockWeights(list);
+            Assert.AreEqual(0.0m, equity.StockWeight);
+            Assert.AreEqual(0.0m, bond.StockWeight);
+        }
+
+        [TestCase]
         public void UpdateStockWeightsIsCorrectForOnlyOneStockInList()
         {
             var sut = new StockWeightProvider();

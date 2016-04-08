@@ -15,9 +15,21 @@ namespace Equities.Domain.Providers
             // we do not convert this to an IList because the collection could be very large
             // and thus interating upon it might just be the only thing left to us
             var totalMarketValue = stocks.Sum(x => x.MarketValue);
-            foreach (var stock in stocks)
+
+            // in case of zero market value everywhere, we have to process it differently
+            if (totalMarketValue == 0)
             {
-                stock.StockWeight = stock.MarketValue / totalMarketValue;
+                foreach (var stock in stocks)
+                {
+                    stock.StockWeight = 0.0m;
+                }
+            }
+            else
+            {
+                foreach (var stock in stocks)
+                {
+                    stock.StockWeight = stock.MarketValue/totalMarketValue;
+                }
             }
         }
     }

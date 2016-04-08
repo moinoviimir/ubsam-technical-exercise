@@ -36,7 +36,7 @@ namespace Equities.ViewModels
                     .WithEquities()
                     .WithBonds()
                     .WithTotal()
-                    .Summary;
+                    .Build();
 
 
             Contents =

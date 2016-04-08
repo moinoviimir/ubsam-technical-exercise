@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Windows.Markup;
 using Equities.Domain;
 using Equities.Models;
 
@@ -13,14 +12,12 @@ namespace Equities.Builders
     /// </summary>
     /// <remarks>
     /// This class doesn't take into account that there might be too many Stocks to fit in a single array.
-    /// It is a primitive implementation for the front-end designed with readability and ease-of-maintenance in mind.
+    /// This is a primitive implementation for the front-end designed with readability and ease-of-maintenance in mind.
     /// </remarks>
     public sealed class SummaryBuilder
     {
         private readonly IList<Stock> _stocks;
         private readonly IList<SummaryModel> _result;
-
-        public IEnumerable<SummaryModel> Summary => _result;
 
         public SummaryBuilder(Func<IEnumerable<Stock>> getStocksAction)
         {
@@ -36,6 +33,9 @@ namespace Equities.Builders
         public SummaryBuilder WithEquities()
         {
             var equities = _stocks.Where(x => x.StockType == TypeOfStock.Equity).ToList();
+            if (equities.Count == 0)
+                return this;
+
             var equitySummary = new SummaryModel
             {
                 Name = "Equities",
@@ -51,6 +51,9 @@ namespace Equities.Builders
         public SummaryBuilder WithBonds()
         {
             var bonds = _stocks.Where(x => x.StockType == TypeOfStock.Bond).ToList();
+            if (bonds.Count == 0)
+                return this;
+
             var bondSummary = new SummaryModel
             {
                 Name = "Bonds",
@@ -66,6 +69,9 @@ namespace Equities.Builders
         public SummaryBuilder WithTotal()
         {
             var everything = _stocks;
+            if (everything.Count == 0)
+                return this;
+
             var totalSummary = new SummaryModel
             {
                 Name = "Total",
